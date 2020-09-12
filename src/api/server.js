@@ -6,7 +6,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-require('./controllers/controller')(app);
+require('./controllers/deliverymenController')(app);
+require('./controllers/authController')(app);
 
 app.use('/', async (req, res) => {
   res.send('OK');
