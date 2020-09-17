@@ -10,7 +10,13 @@ require('./controllers/deliverymenController')(app);
 require('./controllers/authController')(app);
 
 app.use('/', async (req, res) => {
-  res.send('OK');
+  try {
+    res.send('OK');
+  }
+  catch (error) {
+    console.log('API não OK');
+    console.log(error);
+  }
 });
 
 
