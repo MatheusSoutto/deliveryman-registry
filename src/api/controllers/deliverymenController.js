@@ -12,13 +12,13 @@ router.post('/', async (req, res) => {
   try {
     if (await Deliveryman.findOne({ document }))
       return res.status(400).send({ error: 'Entregador já existe' });
-      
+
     const result = await Deliveryman.create(req.body);
 
     return res.status(200).send({ result: result, user: req.userId });
   } catch (err) {
     console.log(err);
-    return res.status(400).send({ error: 'Cadastro falhou'});
+    return res.status(400).send({ error: 'Cadastro falhou' });
   }
 });
 
@@ -30,9 +30,9 @@ router.get('/document/:document', async (req, res) => {
       console.log('From database', result);
       if (result) {
         res.status(200).send({ result: result, user: req.userId });
-      } 
+      }
       else {
-        res.status(400).send({ error: 'Entregador não encontrado'});
+        res.status(400).send({ error: 'Entregador não encontrado' });
       }
     })
     .catch(err => {
@@ -43,20 +43,54 @@ router.get('/document/:document', async (req, res) => {
 
 router.get('/name/:name', async (req, res) => {
   const name = req.params.name;
-  const deliveryman = await Deliveryman.find({ 
-    name: {$regex: new RegExp('.*' + name + '.*', 'i')} 
+  const deliveryman = await Deliveryman.find({
+    name: { $regex: new RegExp('.*' + name + '.*', 'i') }
   }).exec()
     .then(result => {
       if (result) {
         res.status(200).send({ result: result, user: req.userId });
-      } 
+      }
       else {
-        res.status(400).send({ error: 'Entregador não encontrado'});
+        res.status(400).send({ error: 'Entregador não encontrado' });
       }
     })
     .catch(err => {
       console.log(err);
       res.status(400).send({ error: 'Não foi possível buscar o entregador' });
+    });
+});
+
+router.patch('/:id', async (req, res) => {
+  const id = req.params.id;
+  const deliveryman = req.body;
+  deliveryman.updatedAt = new Date();
+  await Deliveryman.findByIdAndUpdate(id, { $set: deliveryman }).exec()
+    .then(result => {
+      return res.status(200).send({
+        message: 'Entregador atualizado',
+        result: result,
+        user: req.userId
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(400).send({ error: 'Atualização falhou' });
+    });
+});
+
+router.delete('/:id', async (req, res) => {
+  const id = req.params.id;
+  Deliveryman.deleteOne({ _id: id }).exec()
+    .then(result => {
+      return res.status(200).send({
+        message: 'Entregador removido',
+        id: id,
+        user: req.userId
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(400).send({ error: 'Remoção falhou' });
     });
 });
 
