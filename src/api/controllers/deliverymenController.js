@@ -43,6 +43,10 @@ router.get('/document/:document', async (req, res) => {
 
 router.get('/name/:name', async (req, res) => {
   const name = req.params.name;
+
+  if (name.length < 4)
+    res.status(400).send({ error: 'Palavra de busca menor que 4' });
+
   const deliveryman = await Deliveryman.find({
     name: { $regex: new RegExp('.*' + name + '.*', 'i') }
   }).exec()
