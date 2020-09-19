@@ -2,39 +2,39 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory, useParams } from "react-router-dom";
 
-const EditUser = () => {
+const Edit = () => {
   let history = useHistory();
   const { id } = useParams();
-  const [user, setUser] = useState({
+  const [deliveryman, setDeliveryman] = useState({
     name: "",
     document: "",
     plate: "",
     company: ""
   });
 
-  const { name, document, plate, company } = user;
+  const { name, document, plate, company } = deliveryman;
   const onInputChange = e => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setDeliveryman({ ...deliveryman, [e.target.name]: e.target.value });
   };
 
   useEffect(() => {
-    const loadUser = async () => {
-      const res = await axios.get(`http://127.0.0.1:3003/users/${id}`);
-      setUser(res.data);
+    const loadDeliveryman = async () => {
+      const res = await axios.get(`http://127.0.0.1:3003/deliverymen/${id}`);
+      setDeliveryman(res.data);
     };
-    loadUser();
+    loadDeliveryman();
   }, [id]);
 
   const onSubmit = async e => {
     e.preventDefault();
-    await axios.put(`http://127.0.0.1:3003/users/${id}`, user);
+    await axios.put(`http://127.0.0.1:3003/deliverymen/${id}`, deliveryman);
     history.push("/");
   };
 
   return (
     <div className="container">
       <div className="w-75 mx-auto shadow p-5">
-        <h2 className="text-center mb-4">Edit A User</h2>
+        <h2 className="text-center mb-4">Editar Entregador</h2>
         
         <form onSubmit={e => onSubmit(e)}>
           <div className="form-group">
@@ -77,11 +77,11 @@ const EditUser = () => {
               onChange={e => onInputChange(e)}
             />
           </div>
-          <button className="btn btn-warning btn-block">Update User</button>
+          <button className="btn btn-warning btn-block">Salvar</button>
         </form>
       </div>
     </div>
   );
 };
 
-export default EditUser;
+export default Edit;

@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 
 const DeliverymanForm = ({ user1, action }) => {
-  const [user, setUser] = useState(user1);
+  const [user, setDeliveryman] = useState(user1);
 
   const { name, document, plate, company } = user;
   const onInputChange = e => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setDeliveryman({ ...user, [e.target.name]: e.target.value });
   };
 
   return (
@@ -50,7 +50,7 @@ const DeliverymanForm = ({ user1, action }) => {
           onChange={e => onInputChange(e)}
         />
       </div>
-      <button className="btn btn-warning btn-block">Update User</button>
+      <button className="btn btn-warning btn-block">Salvar</button>
     </form>
   );
 };

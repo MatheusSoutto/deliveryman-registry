@@ -1,24 +1,24 @@
 import React, { useState } from "react";
-import axios from 'axios'
+import axios from 'axios';
 import { useHistory } from "react-router-dom";
 
-const AddUser = () => {
+const AddDeliveryman = () => {
   let history = useHistory();
-  const [user, setUser] = useState({
+  const [deliveryman, setDeliveryman] = useState({
     name: "",
     document: "",
     plate: "",
     company: ""
   });
 
-  const { name, document, plate, company } = user;
+  const { name, document, plate, company } = deliveryman;
   const onInputChange = e => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setDeliveryman({ ...deliveryman, [e.target.name]: e.target.value });
   };
 
   const onSubmit = async e => {
     e.preventDefault();
-    await axios.post("http://127.0.0.1:3003/users", user);
+    await axios.post("http://127.0.0.1:3003/deliverymen", deliveryman);
     history.push("/");
   };
   return (
@@ -66,11 +66,11 @@ const AddUser = () => {
               onChange={e => onInputChange(e)}
             />
           </div>
-          <button className="btn btn-primary btn-block">Add User</button>
+          <button className="btn btn-primary btn-block">Salvar</button>
         </form>
       </div>
     </div>
   );
 };
 
-export default AddUser;
+export default AddDeliveryman;

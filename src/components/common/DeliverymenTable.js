@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 
 const DeliverymenTable = ({deliverymen}) => {
 
-  const deleteUser = async id => {
+  const deleteDeliveryman = async id => {
     await axios.delete(`http://127.0.0.1:3003/users/${id}`);
-    //loadUsers();
+    //loadDeliverymen();
   };
 
   return (
@@ -41,7 +41,7 @@ const DeliverymenTable = ({deliverymen}) => {
               <Link
                 className="btn btn-danger"
                 to="/"
-                onClick={() => deleteUser(d.id)}>
+                onClick={() => deleteDeliveryman(d.id)}>
                 Remover
               </Link>
             </td>

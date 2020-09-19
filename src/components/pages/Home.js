@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from "react";
+import dotenv from "dotenv";
 import axios from "axios";
+import React, { useState, useEffect } from "react";
 import Deliverymen from "../common/DeliverymenTable";
 
+dotenv.config()
+
 const Home = () => {
-  const [users, setUser] = useState([]);
+  const [deliverymen, setUser] = useState([]);
 
   useEffect(() => {
     loadUsers();
   }, []);
 
   const loadUsers = async () => {
-    const result = await axios.get("http://127.0.0.1:3003/users");
+    const result = await axios.get(process.env.API_URL + "/deliverymen");
     setUser(result.data.reverse());
   };
 
@@ -18,7 +21,7 @@ const Home = () => {
     <div className="container">
       <div className="py-4">
         <h1>Cadastro de Entregador</h1>
-        <Deliverymen  deliverymen={users} />
+        <Deliverymen  deliverymen={deliverymen} />
       </div>
     </div>
   );

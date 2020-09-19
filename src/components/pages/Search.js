@@ -3,12 +3,11 @@ import axios from "axios";
 import Deliverymen from "../common/DeliverymenTable";
 
 const Search = () => {
-  const [users, setUsers] = useState([]);
-  const [user, setUser] = useState({});
+  const [deliverymen, setDeliverymen] = useState([]);
   const [id, setId] = useState("");
 
   useEffect(() => {
-  }, [users]);
+  }, [deliverymen]);
 
   const onInputChange = e => {
     setId(e.target.value);
@@ -16,34 +15,34 @@ const Search = () => {
 
   const onSubmit = async e => {
     e.preventDefault();
-    loadUsers();
+    loadDeliverymen();
   };
 
-  const loadUsers = async () => {
-    const res = await axios.get("http://127.0.0.1:3003/users");
-    let us = res.data.filter((u) => {
+  const loadDeliverymen = async () => {
+    const res = await axios.get("http://127.0.0.1:3003/deliverymen");
+    let result = res.data.filter((u) => {
       if (id.trim().length > 0 && parseInt(id) === u.id) {
         return u;
       }
     })
-    setUsers(us);
+    setDeliverymen(result);
   };
 
-  const deleteUser = async id => {
-    await axios.delete(`http://127.0.0.1:3003/users/${id}`);
-    setUser([]);
+  const deleteDeliveryman = async id => {
+    await axios.delete(`http://127.0.0.1:3003/deliverymen/${id}`);
+    //setDeliveryman([]);
   };
 
   return (
     <div className="container">
       <div className="py-4">
         <h1>Buscar Entregador</h1>
-        {users !== undefined && users.length > 0 ? (
-          <div className="user-found">
-            <Deliverymen deliverymen={users} />
+        {deliverymen !== undefined && deliverymen.length > 0 ? (
+          <div className="deliveryman-found">
+            <Deliverymen deliverymen={deliverymen} />
             <button
               className="btn btn-primary btn-block"
-              onClick={() => setUsers([])}>
+              onClick={() => setDeliverymen([])}>
               Voltar
             </button>
           </div>
