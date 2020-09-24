@@ -4,13 +4,13 @@ const cors = require('cors');
 
 const app = express();
 
-app.use(cors({origin: 'http://127.0.0.1:3000'}));
+app.use(cors({ origin: '*' }));
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json({limit: '2mb'}));
+app.use(bodyParser.urlencoded({limit: '2mb', extended: false}));
 
-require('./controllers/deliverymenController')(app);
 require('./controllers/authController')(app);
+require('./controllers/deliverymenController')(app);
 
 app.use('/', async (req, res) => {
   try {
