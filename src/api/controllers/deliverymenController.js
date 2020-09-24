@@ -44,8 +44,8 @@ router.get('/document/:document', async (req, res) => {
 router.get('/name/:name', async (req, res) => {
   const name = req.params.name;
 
-  if (name.length < 4)
-    res.status(400).send({ error: 'Palavra de busca menor que 4' });
+  if (name.length < 3)
+    res.status(400).send({ error: 'Palavra de busca menor que 3' });
 
   const deliveryman = await Deliveryman.find({
     name: { $regex: new RegExp('.*' + name + '.*', 'i') }
@@ -66,8 +66,14 @@ router.get('/name/:name', async (req, res) => {
 
 router.patch('/:id', async (req, res) => {
   const id = req.params.id;
-  const deliveryman = req.body;
-  deliveryman.updatedAt = new Date();
+  const deliveryman = {
+    name: req.body.name,
+    document: req.body.document,
+    plate: req.body.plate,
+    company: req.body.company,
+    photo: req.body.photo,
+    updatedAt: new Date()
+  }
   await Deliveryman.findByIdAndUpdate(id, { $set: deliveryman }).exec()
     .then(result => {
       return res.status(200).send({

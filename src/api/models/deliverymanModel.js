@@ -25,6 +25,10 @@ const DeliverymanSchema = new mongoose.Schema({
   updatedAt: {
     type: Date,
     default: Date.now
+  },
+  photo: {
+    type: Buffer,
+    required: true
   }
 });
 
