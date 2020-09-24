@@ -2,6 +2,19 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ![Preview Image](https://i.ibb.co/xC8knQ4/Screenshot-89.png)
 
+## Configuration
+
+Must be created a `config.js` file in the `/src` folder, with the following pattern:
+
+`// Environment config`
+`const Api = {`
+`  endpoint: <API_URL>,`
+`  login: <API_LOGIN>,`
+`  password: <API_PASSWORD>`
+`}`
+` `
+`export default Api;`
+
 ## Available Scripts
 
 In the project directory, you can run:
