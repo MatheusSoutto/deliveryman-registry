@@ -1,36 +1,43 @@
-import React, { useState, useEffect } from "react";
 import axios from "axios";
+import React, { useState, useEffect } from "react";
 import Deliverymen from "../common/DeliverymenTable";
+import Api from "./../../config";
 
 const Search = () => {
   const [deliverymen, setDeliverymen] = useState([]);
-  const [id, setId] = useState("");
+  const [name, setName] = useState("");
 
   useEffect(() => {
   }, [deliverymen]);
 
   const onInputChange = e => {
-    setId(e.target.value);
+    setName(e.target.value);
   };
 
-  const onSubmit = async e => {
+  const handeSubmit = async e => {
     e.preventDefault();
-    loadDeliverymen();
-  };
+    if (name && name.length > 2)
+      loadDeliverymen();
+    else
+      alert('Pesquise ao menos 3 letras');
+  }
 
   const loadDeliverymen = async () => {
-    const res = await axios.get("http://127.0.0.1:3003/deliverymen");
-    let result = res.data.filter((u) => {
-      if (id.trim().length > 0 && parseInt(id) === u.id) {
-        return u;
+    axios({
+      method: 'get',
+      url: Api.endpoint + "/deliverymen/name/" + name,
+      headers: {
+        "content-type": "application/json",
+        "authorization": "bearer " + localStorage.getItem('token')
       }
-    })
-    setDeliverymen(result);
-  };
-
-  const deleteDeliveryman = async id => {
-    await axios.delete(`http://127.0.0.1:3003/deliverymen/${id}`);
-    //setDeliveryman([]);
+    }).then(result => {
+      if (result.data.result && result.data.result.length > 0)
+        setDeliverymen(result.data.result);
+      else
+        alert('Entregador não encontrado');
+    }).catch(err => {
+      console.error(err);
+    });
   };
 
   return (
@@ -39,7 +46,7 @@ const Search = () => {
         <h1>Buscar Entregador</h1>
         {deliverymen !== undefined && deliverymen.length > 0 ? (
           <div className="deliveryman-found">
-            <Deliverymen deliverymen={deliverymen} />
+            <Deliverymen deliverymen={deliverymen} setDeliverymen={setDeliverymen} />
             <button
               className="btn btn-primary btn-block"
               onClick={() => setDeliverymen([])}>
@@ -47,14 +54,14 @@ const Search = () => {
             </button>
           </div>
         ) : (
-            <form onSubmit={e => onSubmit(e)}>
+            <form onSubmit={e => handeSubmit(e)}>
               <div className="form-group">
                 <input
                   type="text"
                   className="form-control form-control-lg"
-                  placeholder="Id..."
-                  name="id"
-                  value={id}
+                  placeholder="Nome..."
+                  name="name"
+                  value={name}
                   onChange={e => onInputChange(e)}
                 />
               </div>
