@@ -1,12 +1,25 @@
 import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Api from "./../../config";
 
-const DeliverymenTable = ({deliverymen}) => {
+const DeliverymenTable = ({ deliverymen, setDeliverymen }) => {
 
   const deleteDeliveryman = async id => {
-    await axios.delete(`http://127.0.0.1:3003/users/${id}`);
-    //loadDeliverymen();
+    axios({
+      method: 'delete',
+      url: Api.endpoint + "/deliverymen/" + id,
+      headers: {
+        "content-type": "application/json",
+        "authorization": "bearer " + localStorage.getItem('token')
+      }
+    }).then(result => {
+      if (result.status === 200) {
+        setDeliverymen([]);
+      }
+    }).catch(err => {
+      console.error(err);
+    });
   };
 
   return (
@@ -30,18 +43,18 @@ const DeliverymenTable = ({deliverymen}) => {
             <td>{d.plate}</td>
             <td>{d.company}</td>
             <td>
-              <Link className="btn btn-primary mr-2" to={`/users/${d.id}`}>
+              <Link className="btn btn-primary mr-2" to={{ pathname: `/deliverymen/${d._id}`, deliveryman: d }} >
                 Visualizar
               </Link>
               <Link
                 className="btn btn-outline-primary mr-2"
-                to={`/users/edit/${d.id}`}>
+                to={{ pathname: `/deliverymen/edit/${d._id}`, deliveryman: d }}>
                 Editar
               </Link>
               <Link
                 className="btn btn-danger"
                 to="/"
-                onClick={() => deleteDeliveryman(d.id)}>
+                onClick={() => deleteDeliveryman(d._id)}>
                 Remover
               </Link>
             </td>
