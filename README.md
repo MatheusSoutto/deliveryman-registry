@@ -15,6 +15,12 @@ Must be created a `config.js` file in the `/src` folder, with the following patt
 ` `
 `export default Api;`
 
+Must edit the photo size (`react-html5-camera-photo>video`) in the file `index.css`, in folder `/node_modules/react-html5-camera-photo/build/css/`, like bellow:
+
+`.react-html5-camera-photo>video{width:268px}`
+
+The default width was 768px
+
 ## Available Scripts
 
 In the project directory, you can run:
