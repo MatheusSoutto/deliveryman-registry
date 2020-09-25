@@ -1,31 +1,49 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import axios from "axios";
+import { useHistory } from "react-router-dom";
 
-const View = () => {
+const View = (props) => {
+  const history = useHistory();
   const [deliveryman, setDeliveryman] = useState({
+    _id: "",
     name: "",
     document: "",
     plate: "",
-    company: ""
+    company: "",
+    photo: undefined
   });
-  const { id } = useParams();
+
   useEffect(() => {
-    const loadDeliveryman = async () => {
-      const res = await axios.get(`http://127.0.0.1:3003/deliverymen/${id}`);
-      setDeliveryman(res.data);
-    };
-    loadDeliveryman();
-  }, [id]);
+    if (props.location.deliveryman && props.location.deliveryman.photo) {
+      let buff = Buffer.from(props.location.deliveryman.photo);
+      setDeliveryman({ ...props.location.deliveryman, photo: buff.toString() });
+    }
+    else
+      setDeliveryman(props.location.deliveryman);
+  }, [props]);
+
+  const voltar = () => {
+    history.push('/');
+  }
+
   return (
     <div className="container py-4">
-      <Link className="btn btn-primary" to="/">
+      <button className="btn btn-primary" onClick={() => voltar()}>
         Voltar
-      </Link>
-      <h1 className="display-4">Id: {id}</h1>
+      </button>
+      <div className="start-job-container">
+        {(deliveryman.photo) ? (
+          <div className="react-html5-camera-photo">
+            <img src={deliveryman.photo} alt="camera" />
+          </div>
+        ) : (
+            <div className="text-center">
+              <img src="/default_profile.jpg" alt="default" width="201" height="201" />
+            </div>
+          )}
+      </div>
+      <h1 className="display-4">Nome: {deliveryman.name}</h1>
       <hr />
       <ul className="list-group w-50">
-        <li className="list-group-item">Nome: {deliveryman.name}</li>
         <li className="list-group-item">Documento: {deliveryman.document}</li>
         <li className="list-group-item">Placa: {deliveryman.plate}</li>
         <li className="list-group-item">Empresa: {deliveryman.company}</li>
