@@ -7,6 +7,7 @@ import EditDeliveryman from "./../common/DeliverymanForm";
 const Edit = (props) => {
   let history = useHistory();
   const [deliveryman, setDeliveryman] = useState({
+    _id: "",
     name: "",
     document: "",
     plate: "",
@@ -15,6 +16,15 @@ const Edit = (props) => {
   });
 
   useEffect(() => setDeliveryman(props.location.deliveryman), [props]);
+
+  useEffect(() => {
+    if (!deliveryman || deliveryman._id.length < 1) {
+      let data = localStorage.getItem('deliveryman');
+      if (data) {
+        setDeliveryman(JSON.parse(data));
+      }
+    }
+  }, [deliveryman]);
 
   const onSubmit = async (e, data) => {
     e.preventDefault();

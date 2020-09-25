@@ -5,6 +5,15 @@ import Api from "./../../config";
 
 const DeliverymenTable = ({ deliverymen, setDeliverymen }) => {
 
+  const persistDeliveryman = async deliveryman => {
+    if (deliveryman) {
+      if (deliveryman.photo) {
+        deliveryman.photo = Buffer.from(deliveryman.photo).toString();
+      }
+      localStorage.setItem('deliveryman', JSON.stringify(deliveryman));
+    }
+  }
+
   const deleteDeliveryman = async id => {
     axios({
       method: 'delete',
@@ -43,12 +52,16 @@ const DeliverymenTable = ({ deliverymen, setDeliverymen }) => {
             <td>{d.plate}</td>
             <td>{d.company}</td>
             <td>
-              <Link className="btn btn-primary mr-2" to={{ pathname: `/deliverymen/${d._id}`, deliveryman: d }} >
+              <Link 
+                className="btn btn-primary mr-2" 
+                to={{ pathname: `/deliverymen/${d._id}`, deliveryman: d }}
+                onClick={() => persistDeliveryman(d)} >
                 Visualizar
               </Link>
               <Link
                 className="btn btn-outline-primary mr-2"
-                to={{ pathname: `/deliverymen/edit/${d._id}`, deliveryman: d }}>
+                to={{ pathname: `/deliverymen/edit/${d._id}`, deliveryman: d }}
+                onClick={() => persistDeliveryman(d)} >
                 Editar
               </Link>
               <Link

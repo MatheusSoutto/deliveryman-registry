@@ -13,13 +13,13 @@ const View = (props) => {
   });
 
   useEffect(() => {
-    if (props.location.deliveryman && props.location.deliveryman.photo) {
-      let buff = Buffer.from(props.location.deliveryman.photo);
-      setDeliveryman({ ...props.location.deliveryman, photo: buff.toString() });
+    if (!deliveryman || deliveryman._id.length < 1) {
+      let data = localStorage.getItem('deliveryman');
+      if (data) {
+        setDeliveryman(JSON.parse(data));
+      }
     }
-    else
-      setDeliveryman(props.location.deliveryman);
-  }, [props]);
+  }, [deliveryman]);
 
   const voltar = () => {
     history.push('/');
@@ -31,7 +31,7 @@ const View = (props) => {
         Voltar
       </button>
       <div className="start-job-container">
-        {(deliveryman.photo) ? (
+        {(deliveryman && deliveryman.photo) ? (
           <div className="react-html5-camera-photo">
             <img src={deliveryman.photo} alt="camera" />
           </div>
