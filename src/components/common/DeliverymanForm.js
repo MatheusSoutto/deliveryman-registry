@@ -55,7 +55,7 @@ const DeliverymanForm = ({ model, action }) => {
             <img src={deliveryman.photo} alt="photoTaken" />
           </div>
           <div className="text-center" style={{ marginTop: 8 }}>
-            <button className="btn btn-warning" onClick={() => setStep('1')}>
+            <button className="btn btn-outline-primary" onClick={() => setStep('1')}>
               Alterar Foto
           </button>
           </div>
@@ -106,7 +106,7 @@ const DeliverymanForm = ({ model, action }) => {
           <div className="text-center">
             <img src="/default_profile.jpg" alt="default" width="201" height="201" />
             <div style={{ marginTop: 8 }}>
-              <button className="btn btn-warning" onClick={() => setStep('1')}>
+              <button className="btn btn-primary" onClick={() => setStep('1')}>
                 Tirar Foto
               </button>
             </div>
