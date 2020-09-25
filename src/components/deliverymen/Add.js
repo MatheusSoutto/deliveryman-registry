@@ -1,76 +1,44 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
+import Api from "./../../config";
+import AddDeliveryman from "./../common/DeliverymanForm";
 
-const AddDeliveryman = () => {
+const Add = () => {
   let history = useHistory();
-  const [deliveryman, setDeliveryman] = useState({
+  const deliveryman = {
     name: "",
     document: "",
     plate: "",
-    company: ""
-  });
-
-  const { name, document, plate, company } = deliveryman;
-  const onInputChange = e => {
-    setDeliveryman({ ...deliveryman, [e.target.name]: e.target.value });
+    company: "",
+    photo: undefined
   };
 
-  const onSubmit = async e => {
+  // Create a new Deliveryman
+  const onSubmit = async (e, data) => {
     e.preventDefault();
-    await axios.post("http://127.0.0.1:3003/deliverymen", deliveryman);
+    axios({
+      method: 'post',
+      url: Api.endpoint + '/deliverymen',
+      data: data,
+      headers: {
+        "content-type": "application/json",
+        "authorization": "bearer " + localStorage.getItem('token')
+      }
+    }).catch(err => {
+      console.error(err);
+    });
     history.push("/");
   };
+
   return (
     <div className="container">
       <div className="w-75 mx-auto shadow p-5">
-        <h2 className="text-center mb-4">Addicionar Entregador</h2>
-        <form onSubmit={e => onSubmit(e)}>
-        <div className="form-group">
-            <input
-              type="text"
-              className="form-control form-control-lg"
-              placeholder="Nome"
-              name="name"
-              value={name}
-              onChange={e => onInputChange(e)}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="text"
-              className="form-control form-control-lg"
-              placeholder="Documento"
-              name="document"
-              value={document}
-              onChange={e => onInputChange(e)}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="text"
-              className="form-control form-control-lg"
-              placeholder="Placa"
-              name="plate"
-              value={plate}
-              onChange={e => onInputChange(e)}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="text"
-              className="form-control form-control-lg"
-              placeholder="Empresa"
-              name="company"
-              value={company}
-              onChange={e => onInputChange(e)}
-            />
-          </div>
-          <button className="btn btn-primary btn-block">Salvar</button>
-        </form>
+        <h2 className="text-center mb-4">Adicionar Entregador</h2>
+        <AddDeliveryman model={deliveryman} action={onSubmit} />
       </div>
     </div>
   );
 };
 
-export default AddDeliveryman;
+export default Add;
