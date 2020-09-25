@@ -6,14 +6,14 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import "../node_modules/bootstrap/dist/css/bootstrap.css";
-import Search from "./components/pages/Search";
-import About from "./components/pages/About";
-import Navbar from "./components/layout/Navbar";
-import NotFound from "./components/pages/NotFound";
-import Add from "./components/deliverymen/Add";
-import Edit from "./components/deliverymen/Edit";
-import View from "./components/deliverymen/View";
-import TakePhoto from "./components/common/TakePhoto";
+import Search from "./client/pages/Search";
+import About from "./client/pages/About";
+import Navbar from "./client/layout/Navbar";
+import NotFound from "./client/pages/NotFound";
+import Add from "./client/deliverymen/Add";
+import Edit from "./client/deliverymen/Edit";
+import View from "./client/deliverymen/View";
+import TakePhoto from "./client/common/TakePhoto";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
