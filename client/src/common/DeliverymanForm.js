@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import TakePhoto from "./TakePhoto";
-import 'react-html5-camera-photo/build/css/index.css';
+import './camera.css';
 
 const DeliverymanForm = ({ model, action }) => {
   const [step, setStep] = useState('0');
@@ -35,7 +35,6 @@ const DeliverymanForm = ({ model, action }) => {
     let valido = true;
     for (let key in fieldNames) {
       if (!deliveryman[key] || deliveryman === "") {
-        debugger;
         e.preventDefault();
         valido = false;
         alert(`${fieldNames[key]} inválido(a)!`);
@@ -112,7 +111,7 @@ const DeliverymanForm = ({ model, action }) => {
             </div>
           </div>
         ) : (
-          <TakePhoto dataUri={model.photo} setDataUri={setPhoto} />
+          <TakePhoto setDataUri={setPhoto} />
         )}
     </form>
   );
