@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Deliverymen from "../common/DeliverymenTable";
-import Api from "./../../config";
+import Api from "../config";
 
 const Search = () => {
   const [deliverymen, setDeliverymen] = useState([]);

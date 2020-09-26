@@ -1,8 +1,8 @@
 import React from "react";
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
-import Api from "./../../config";
-import AddDeliveryman from "./../common/DeliverymanForm";
+import Api from "../config";
+import AddDeliveryman from "../common/DeliverymanForm";
 
 const Add = () => {
   let history = useHistory();

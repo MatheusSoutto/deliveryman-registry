@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import TakePhoto from "./../common/TakePhoto";
+import TakePhoto from "./TakePhoto";
 import 'react-html5-camera-photo/build/css/index.css';
 
 const DeliverymanForm = ({ model, action }) => {
