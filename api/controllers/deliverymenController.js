@@ -10,6 +10,7 @@ router.use(authMiddleware);
 router.post('/', async (req, res) => {
   const { document } = req.body;
   try {
+    // Confere existência pelo documento 
     if (await Deliveryman.findOne({ document }))
       return res.status(400).send({ error: 'Entregador já existe' });
 
@@ -71,6 +72,7 @@ router.patch('/:id', async (req, res) => {
     document: req.body.document,
     plate: req.body.plate,
     company: req.body.company,
+    visited: req.body.visited,
     photo: req.body.photo,
     updatedAt: new Date()
   }

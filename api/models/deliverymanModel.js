@@ -18,6 +18,10 @@ const DeliverymanSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  visited: {
+    type: String,
+    required: true
+  },
   createdAt: {
     type: Date,
     default: Date.now
