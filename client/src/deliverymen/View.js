@@ -9,6 +9,7 @@ const View = (props) => {
     document: "",
     plate: "",
     company: "",
+    visited: "",
     photo: undefined
   });
 
@@ -47,6 +48,7 @@ const View = (props) => {
         <li className="list-group-item">Documento: {deliveryman.document}</li>
         <li className="list-group-item">Placa: {deliveryman.plate}</li>
         <li className="list-group-item">Empresa: {deliveryman.company}</li>
+        <li className="list-group-item">Última Visita: {deliveryman.visited}</li>
       </ul>
     </div>
   );

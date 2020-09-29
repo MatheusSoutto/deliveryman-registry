@@ -12,6 +12,7 @@ const Edit = (props) => {
     document: "",
     plate: "",
     company: "",
+    visited: "",
     photo: undefined
   });
 

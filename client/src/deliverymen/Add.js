@@ -11,6 +11,7 @@ const Add = () => {
     document: "",
     plate: "",
     company: "",
+    visited: "",
     photo: undefined
   };
 
