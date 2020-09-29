@@ -40,6 +40,7 @@ const DeliverymenTable = ({ deliverymen, setDeliverymen }) => {
           <th scope="col">Documento</th>
           <th scope="col">Placa</th>
           <th scope="col">Empresa</th>
+          <th scope="col">Última Visita</th>
           <th>Ação</th>
         </tr>
       </thead>
@@ -51,6 +52,7 @@ const DeliverymenTable = ({ deliverymen, setDeliverymen }) => {
             <td>{d.document}</td>
             <td>{d.plate}</td>
             <td>{d.company}</td>
+            <td>{d.visited}</td>
             <td>
               <Link 
                 className="btn btn-primary mr-2" 

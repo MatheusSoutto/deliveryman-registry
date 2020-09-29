@@ -15,13 +15,14 @@ const DeliverymanForm = ({ model, action }) => {
     }
   }, [model]);
 
-  const { name, document, plate, company } = deliveryman;
+  const { name, document, plate, company, visited } = deliveryman;
   const fieldNames = {
     name: 'Nome',
     document: 'Documento',
     plate: 'Placa',
     company: 'Empresa',
-    photo: 'Foto'
+    photo: 'Foto',
+    visited: 'Última Visita'
   }
 
   const onInputChange = e => {
@@ -96,6 +97,16 @@ const DeliverymanForm = ({ model, action }) => {
               placeholder={fieldNames.company}
               name="company"
               value={company}
+              onChange={e => onInputChange(e)}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control form-control-lg"
+              placeholder={fieldNames.visited}
+              name="visited"
+              value={visited}
               onChange={e => onInputChange(e)}
             />
           </div>
