@@ -2,14 +2,14 @@ FROM node:alpine
 
 WORKDIR /client
 
-COPY ./package.json ./
+COPY . .
 
 RUN CI=true
+RUN HTTPS=true
 
 RUN npm install
-
-COPY . .
+RUN npm install -g serve
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["serve", "-s", "build", "-l", "3000"]
