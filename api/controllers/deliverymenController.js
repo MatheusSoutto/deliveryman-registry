@@ -106,4 +106,4 @@ router.delete('/:id', async (req, res) => {
     });
 });
 
-module.exports = app => app.use('/deliverymen', router);
+module.exports = app => app.use('/api/deliverymen', router);
