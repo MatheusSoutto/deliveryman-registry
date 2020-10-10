@@ -1,19 +1,43 @@
 version: "3"
 services: 
+
+  reverse-proxy:
+    image: valian/docker-nginx-auto-ssl:1.0.0
+    container_name: reverse-proxy
+    restart: on-failure
+    ports: 
+      - 80:80
+      - 443:443
+    volumes: 
+      - ./.ssl-data:/etc/resty-auto-ssl
+    environment: 
+      ALLOWED_DOMAINS: '192.168.1.66'
+      SITES: '192.168.1.66=react-app:3000'
+      FORCE_HTTPS: "true"
+    depends_on: 
+      - react-app
+
   react-app:
-    image: matheussoutto/deliveryman-client
+    image: nginx:1.16-alpine
+    container_name: react-app
     stdin_open: true
     ports: 
-      - "3000:3000"
+      - 3000:3000
     networks: 
-      - mern-app
+      mern-app:
+        aliases: 
+          - react-app
+    volumes: 
+      - ./client/build:/usr/share/nginx/html
+      - ./client/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
     depends_on: 
       - api-server
 
   api-server:
     image: matheussoutto/deliveryman-api
+    container_name: deliveryman-api
     ports: 
-      - "3002:3002"
+      - 3002:3002
     networks: 
       - mern-app
     depends_on: 
@@ -35,3 +59,4 @@ networks:
 volumes: 
   mongo-data:
     driver: local
+  .ssl-data:

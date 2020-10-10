@@ -8,6 +8,7 @@ node_modules
 .pnp.js
 package-lock.json
 config.js
+.ssl-data
 
 
 # testing
