@@ -1,13 +1,15 @@
 FROM node:alpine
 
+WORKDIR /client/build
+
+COPY ./client/build .
+
 WORKDIR /api
 
-COPY ./package.json ./
+COPY ./api .
 
 RUN npm install
 
-COPY . .
-
-EXPOSE 3002
+EXPOSE 3000
 
 CMD ["npm", "start"]
