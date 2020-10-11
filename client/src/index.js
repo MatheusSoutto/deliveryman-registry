@@ -30,7 +30,6 @@ const login = async () => {
 login().then(result => {
   console.log('logou');
   if (result.data && result.data.token) {
-    console.log(result.data);
     localStorage.setItem('token', result.data.token);
     localStorage.setItem('userId', result.data.user._id);
   }
@@ -40,7 +39,6 @@ login().then(result => {
     register().then(result => {
       console.log('logou');
       if (result.data && result.data.token) {
-        console.log(result.data);
         localStorage.setItem('token', result.data.token);
         localStorage.setItem('userId', result.data.user._id);
       }
