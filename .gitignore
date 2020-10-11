@@ -4,6 +4,7 @@
 */node_modules
 node_modules
 */build
+*/cert
 /.pnp
 .pnp.js
 package-lock.json
