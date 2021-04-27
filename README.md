@@ -5,16 +5,16 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Configuration
 
 Must be created a `config.js` file in the `/src` folder, with the following pattern:
+```
+// Environment config
+const Api = {
+  endpoint: <API_URL>,
+  login: <API_LOGIN>,
+  password: <API_PASSWORD>
+}
 
-`// Environment config`
-`const Api = {`
-`  endpoint: <API_URL>,`
-`  login: <API_LOGIN>,`
-`  password: <API_PASSWORD>`
-`}`
-` `
-`export default Api;`
-
+export default Api;
+```
 Must edit the photo size (`react-html5-camera-photo>video`) in the file `index.css`, in folder `/node_modules/react-html5-camera-photo/build/css/`, like bellow:
 
 `.react-html5-camera-photo>video{width:268px}`
